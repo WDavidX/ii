@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\nInstallation Starts"
-echo pwd
+echo $pwd
 ############################################################
 ########## apt-get updates and preparation
 ############################################################
