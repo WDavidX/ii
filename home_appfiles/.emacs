@@ -1,2 +1,2 @@
-;; put init directory to home ~ and copy this file to ~
-(load-file "~/init/emacs_basic.el")
+;; Generated .emacs on Tue Mar 29 22:26:50 CDT 2016
+(load-file "/home/pi/ii/emacs_basic.el")

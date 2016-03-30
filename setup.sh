@@ -7,8 +7,9 @@ II_DIR_NAME='ii'
 II_DIR=${HOME}/${II_DIR_NAME}
 II_HOMEDOT_DIR=${II_DIR}/home_dotfiles
 II_HOMEAPP_DIR=${II_DIR}/home_appfiles
-FLAG_APPEND_DOTFILE=0
-FLAG_HELP=0
+
+#FLAG_APPEND_DOTFILE=0
+#FLAG_HELP=0
 
 export II_DIR
 
@@ -48,6 +49,10 @@ done
 ############################################################
 ########## Creating or copying files to home
 ############################################################
+
+## Generate the 
+
+
 for i in ${II_HOMEDOT_DIR}/.??* ; # Whitespace-safe but not recursive.
 do      
     filename=$(basename "$i")
@@ -61,42 +66,36 @@ do
 done
 
 
-if [ $FLAG_APPEND_DOTFILE ]; then
-  echo -e "Appending the dot files in $HOME"
-  
+if [[ $FLAG_APPEND_DOTFILE ]]; then
+  echo -e "Appending the dot files in $HOME"  
+  if [ -f ${II_HOMEAPP_DIR}/dotfile_generation.sh ]; then
+      source ${II_HOMEAPP_DIR}/dotfile_generation.sh
+  fi
   for i in ${II_HOMEAPP_DIR}/.??* ; # Whitespace-safe but not recursive.
   do 
-      filename=$(basename "$i")
-      home_dot_filename="${HOME}/${filename}"
-      file_exist=0
+    filename=$(basename "$i")
+    home_dot_filename="${HOME}/${filename}"
+    file_exist=0      
+    if [ -f $home_dot_filename ]; then 
+      file_exist=1
+    fi
       
-      if [ -f $home_dot_filename ]; then 
-        file_exist=1
-      fi
-      
-      echo $i
-      echo $filename
-      echo $file_exist
-      
-  touch ${home_dot_filename}
-      
-  case $filename in
-    .emacs)
-    echo -e "\n\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;;;;;;;; `date`\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n" >> ${home_dot_filename}
-    ;;
-    .bashrc)
-    echo -e "\n\n############################################################\n########## `date`\n############################################################\n" >> ${home_dot_filename}
-    ;;    
-  esac
+    touch ${home_dot_filename}      
+    case $filename in
+      .emacs)
+      echo -e "\n\n\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;;;;;;;; `date`\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n" >> ${home_dot_filename}
+      ;;
+      .bashrc)
+      echo -e "\n\n\n############################################################\n########## `date`\n############################################################\n" >> ${home_dot_filename}
+      ;;    
+    esac
   
-  if [ $file_exist ]; then
-    echo -e "No file in $HOME, creating    $filename"
-  else 
-    echo -e "Existing file in $HOME, appending    $filename"    
-  fi
-  cat "$i" >> "$home_dot_filename"  
-done
-
-
+    if [ $file_exist ]; then
+      echo -e "Existing file in $HOME, appending    $filename" 
+    else 
+      echo -e "No file in $HOME, creating    $filename"  
+    fi
+    cat "$i" >> "${home_dot_filename}"  
+  done
 fi
   
