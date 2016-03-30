@@ -47,11 +47,10 @@ done
 
 
 ############################################################
-########## Creating or copying files to home
+########## File manipulation
 ############################################################
 
-## Generate the 
-
+## Creating or copying files to home
 
 for i in ${II_HOMEDOT_DIR}/.??* ; # Whitespace-safe but not recursive.
 do      
@@ -65,7 +64,7 @@ do
     fi    
 done
 
-
+## Generate the dot files and append them
 if [[ $FLAG_APPEND_DOTFILE ]]; then
   echo -e "Appending the dot files in $HOME"  
   if [ -f ${II_HOMEAPP_DIR}/dotfile_generation.sh ]; then
