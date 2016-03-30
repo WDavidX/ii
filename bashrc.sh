@@ -6,7 +6,7 @@
 II_DIR_NAME='ii'
 #II_DIR=${HOME}/${II_DIR_NAME}
 II_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-II_BASH_DIR=${II_DIR}/bash_login
+II_BASH_DIR=${II_DIR}/login_bash
 
 export II_DIR
 
@@ -28,19 +28,17 @@ if [ -t 1 ] ; then
   if [ -f "${II_BASH_DIR}/login_1color.sh" ] 
   then 
     source "${II_BASH_DIR}/login_1color.sh"
-  fi
-  
+  fi  
   Cyan="\[\033[0;36m\]"
   Green="\[\033[0;32m\]"
   BBlue="\[\033[1;34m\]"
-  Color_Off="\[\033[0m\]"
-  
+  Color_Off="\[\033[0m\]"  
   # BASH_PS1_DEFAULT="\n# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M:%S) ${BBlue}\w${Color_Off}   \n    "
   # BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "    # bash bug
-  BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M:%S) ${BBlue}\w${Color_Off}   \n    "
-  BASH_PS1_DEFAULT="\[1;37\]\#/\! \u@\h \$(date +%k:%M:%S) \w   "
-  BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}   "
-
+  # BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M:%S) ${BBlue}\w${Color_Off}   \n    "
+  # BASH_PS1_DEFAULT="\[1;37\]\#/\! \u@\h \$(date +%k:%M:%S) \w   "
+  # BASH_PS1_DEFAULT="#${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}   "
+  BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "
 fi
  
 ############################################################
