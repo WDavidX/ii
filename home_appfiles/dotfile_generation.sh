@@ -10,12 +10,12 @@ if [ -v "${II_HOMEAPP_DIR}" ]; then
 fi
 
 ########## .emacs
-echo ";; Generated .emacs on `date`" > "$II_HOMEAPP_DIR/.emacs"
-echo "(load-file \"${II_DIR}/emacs_basic.el\")" >> "$II_HOMEAPP_DIR/.emacs"
+echo -e ";; Generated .emacs on `date`" > "$II_HOMEAPP_DIR/.emacs"
+echo -e "(load-file \"${II_DIR}/emacs.el\")\n" >> "$II_HOMEAPP_DIR/.emacs"
 
 ########## .bashrc
-echo "## Generated .bashrc on `date`" > "$II_HOMEAPP_DIR/.bashrc"
-echo -e "if [ -f ${II_DIR}/bashrc.sh ]; then \n  source ${II_DIR}/bashrc.sh \nfi" >> "$II_HOMEAPP_DIR/.bashrc"
+echo -e "## Generated .bashrc on `date`" > "$II_HOMEAPP_DIR/.bashrc"
+echo -e "if [ -f ${II_DIR}/bashrc.sh ]; then \n  source ${II_DIR}/bashrc.sh \nfi\n" >> "$II_HOMEAPP_DIR/.bashrc"
 
 
     
