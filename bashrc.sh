@@ -46,6 +46,8 @@ if [ -t 1 ] ; then
   then
     source "${II_BASH_DIR}/git_prompt.sh"
     BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Purple}${Purple}\$(__git_ps1)${Color_Off} "
+    # Please notice that the command __git_ps1 was enclosed by \$(__git_ps1) so it does not expand immediately.
+    # It is expected to be expanded at each prompt. Normal $(__git_ps1) does not work at each prompt
   else
     BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "
   fi
