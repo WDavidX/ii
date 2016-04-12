@@ -3,6 +3,11 @@
 ############################################################
 ########## Environment Varibles Setup
 ############################################################
+
+
+############################################################
+########## Environment Varibles Setup
+############################################################
 II_DIR_NAME='ii'
 #II_DIR=${HOME}/${II_DIR_NAME}
 II_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -19,7 +24,9 @@ LS_COLORS=$LS_COLORS:'di=4;34:ln=1;35:or=0;31;01:mi=01;05;95:' ; export LS_COLOR
 ########## Terminal Only Configuration
 ############################################################
 
-
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
 if [ -t 1 ] ; then 
   # PS1=">\[\033[s\]\[\033[1;\$((COLUMNS-5))f\]\$(date +%H:%M)\[\033[u\]" Time on top right
@@ -29,24 +36,32 @@ if [ -t 1 ] ; then
   then 
     source "${II_BASH_DIR}/login_1color.sh"
   fi  
-  Cyan="\[\033[0;36m\]"
-  Green="\[\033[0;32m\]"
-  BBlue="\[\033[1;34m\]"
-  Color_Off="\[\033[0m\]"  
+  
   # BASH_PS1_DEFAULT="\n# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M:%S) ${BBlue}\w${Color_Off}   \n    "
   # BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "    # bash bug
   # BASH_PS1_DEFAULT="# ${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M:%S) ${BBlue}\w${Color_Off}   \n    "
   # BASH_PS1_DEFAULT="\[1;37\]\#/\! \u@\h \$(date +%k:%M:%S) \w   "
   # BASH_PS1_DEFAULT="#${Cyan}\#/\! ${Green}\u@\h ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}   "
-  BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "
+  if [ -f "${II_BASH_DIR}/git_prompt.sh" ]
+  then
+    source "${II_BASH_DIR}/git_prompt.sh"
+    BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Purple}${Purple}\$(__git_ps1)${Color_Off} "
+  else
+    BASH_PS1_DEFAULT="#${Cyan}\# ${Green}\u ${Cyan}\$(date +%k:%M) ${BBlue}\w${Color_Off}  "
+  fi
 fi
  
 ############################################################
 ########## BASH Only Configuration
 ############################################################
 
+
+__git_ps1_foo(){
+  echo -n $(__git_ps1 "(%s)  ")
+}
+
 if [ "${SHELL}" = "/bin/bash" ] ; then 
-  PS1=${BASH_PS1_DEFAULT}
+  export PS1=${BASH_PS1_DEFAULT}
   . /etc/bash_completion
 fi
   

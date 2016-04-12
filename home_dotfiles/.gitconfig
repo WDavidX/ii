@@ -1,21 +1,20 @@
 [user]
-    name = David Xu
-    email = mysolowing@gmail.com
+	name = David Xu
+	email = mysolowing@gmail.com
 [color]
-    diff = auto
-    status = auto
-    branch = auto
-    interactive = auto
-    ui = true
-    pager = true
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+	ui = auto
+  pager = true
 [core]
-    pager = less -R
-    editor = emacs -q
-    autocrlf = input
-    excludesfile = ~/.gitignore_global
-    
-[push]
-	default = matching
+	pager = less -R
+	editor = emacs -q
+	autocrlf = input
+	excludesfile = ~/init/.gitignore_global
+	
+	
 	
 [alias]
   la = "!git config -l | grep alias | cut -c 7-"  # list all alias
@@ -28,8 +27,11 @@
   le = log --oneline --decorate
   dl = "!git ll -1"         # Show modified files in last commit
   dlc = diff --cached HEAD^ # dlc = diff --cached HEAD^
-  graph = log --all --graph --decorate --oneline -n20  
+  graph = log --all --graph --decorate --oneline -n20
+  
   cb = !git branch | grep ^* | cut -d' ' -f2
   sb = !ls .git/refs/remotes/*/$(git cb) | cut -d/ -f4,5 | \
        xargs git show-branch $(git cb)
        
+[push]
+	default = simple

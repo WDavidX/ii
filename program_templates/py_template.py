@@ -14,7 +14,7 @@ This program does something.
 # Parameters        :
 #
 # Date(YYYYMMDD)        Author          Ref    Revision (Date in  format)
-# 2001-01-01            David           1      Initial
+# 2001-01-01            John Doe        1      Initial
 ###############################################################################
 '''
 

@@ -15,6 +15,7 @@ sudo apt-get upgrade -y
 sudo apt-get install -y emacs
 sudo apt-get install -y screen ntpdate 
 sudo apt-get install -y tightvncserver 
+sudo apt-get install -y bash-completion
 
 ############################################################
 ########## Untilities
