@@ -3,13 +3,15 @@ My abbreviation of init, which is the abbreviation of initialization. This proje
 
 ## File and folder descriptions
 
+
+### Table of root configuration files
 | File  Name         |  Descriptions         |
 |---|---|
 | emacs.el|General emacs configuation across all versions and platforms|
 | bashrc.sh | bash run commands, excuted on each login |
 | setup.sh|bash setup file, one-time only setup|
 
-
+### Table of folders containing detailed configuration files
 | Folder Name         |  Descriptions         |
 |---|---|
 | bash_login|Files to be loaded upon bash login|
