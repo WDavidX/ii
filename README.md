@@ -19,5 +19,7 @@ My abbreviation of init, which is the abbreviation of initialization. This proje
 |home_dotfiles |Files to be copied to $HOME |
 |program_templates | Commonly used program templates|
 
-
+## Refernces
+* [git-completion.bash](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)
+* [git-prompt.sh](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 
