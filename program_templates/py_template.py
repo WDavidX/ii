@@ -22,6 +22,7 @@ import sys
 import argparse
 import logging
 import re
+
 # import visa
 # import numpy as np
 # import pandas as pd
@@ -38,24 +39,24 @@ VERSION = '0.1.0'
 
 _DIR_WORK = r'C:\xtemp'  # Set default directory
 _DIR_DATA_NAME = r''
-_DIR_DATA = os.path.join(_DIR_WORK,_DIR_DATA_NAME)
+_DIR_DATA = os.path.join(_DIR_WORK, _DIR_DATA_NAME)
 
 
 def wait_progressbar(wait_time, update_time=None,
                      bar_width=50, progress_marker=None):
     import sys
-    from time import sleep,time
-    start_time=time()
+    from time import sleep, time
+    start_time = time()
     MIN_UPDATE_TIME = 0.1
     if update_time is None:
         update_time = MIN_UPDATE_TIME
     else:
         update_time = min(MIN_UPDATE_TIME, update_time)
     if progress_marker is None: progress_marker = ['-', '\\', '|', '/']
-    finish_marker="*"
+    finish_marker = "*"
     n_update = int(wait_time / update_time)
-    progstr_previous=None
-    if wait_time>3:
+    progstr_previous = None
+    if wait_time > 3:
         for i in range(n_update):
             prog = float(i) / n_update
             prog_time = prog * wait_time
@@ -63,30 +64,33 @@ def wait_progressbar(wait_time, update_time=None,
             n_marker = int(prog * bar_width)
             n_space = bar_width - n_marker
             progstr = "[%s%s] %.0f/%.0f   %d%%\r" % (
-                        marker * n_marker, " " * n_space,
-                        prog_time, wait_time, int(prog*100))
-            if not (progstr==progstr_previous):
+                marker * n_marker, " " * n_space,
+                prog_time, wait_time, int(prog * 100))
+            if not (progstr == progstr_previous):
                 sys.stdout.write(progstr)
                 sys.stdout.flush()
-                progstr_previous=progstr
+                progstr_previous = progstr
             else:
                 pass
             sleep(float(update_time))
     else:
         sleep(wait_time)
 
-    marker=finish_marker
+    marker = finish_marker
     progstr = "[%s%s] %.0f/%.0f   %d%%\n" % (
         marker * bar_width, " " * 0,
-        wait_time, wait_time,100)
+        wait_time, wait_time, 100)
     sys.stdout.write(progstr)
     sys.stdout.flush()
-    return time()-start_time
+    return time() - start_time
+
 
 def get_timestamp(t=None):
     if (t is None) or not (isinstance(t, float)): t = time()
-    if '_FMT_TIME' not in globals(): LOCAL_FMT_TIME = '%y%m%d-%H-%M-%S'
-    else: LOCAL_FMT_TIME=_FMT_TIME
+    if '_FMT_TIME' not in globals():
+        LOCAL_FMT_TIME = '%y%m%d-%H-%M-%S'
+    else:
+        LOCAL_FMT_TIME = _FMT_TIME
     return t, strftime(LOCAL_FMT_TIME, localtime(t))
 
 
@@ -111,13 +115,13 @@ def startup(dir_working=None):
     global _DIR_WORK
 
     # working directory setup
-    if dir_working is None: dir_working=_DIR_WORK
-    if not os.path.exists(dir_working): os.mkdir(dir_working, 755)
-    if (not _DIR_DATA_NAME) and (not os.path.exists(_DIR_DATA)):
-        os.mkdir(_DIR_DATA, 755)
+    if dir_working is None: dir_working = _DIR_WORK
+    if not dir_working:
+        if not os.path.exists(dir_working): os.mkdir(dir_working, 755)
+        if (not _DIR_DATA_NAME) and (not os.path.exists(_DIR_DATA)):
+            os.mkdir(_DIR_DATA, 755)
+        os.chdir(_DIR_WORK)
 
-    os.chdir(_DIR_WORK)
-    
     # python logging module setup
     # old_logging_formatter=logging.root.handlers[0].formatter._fmt
     # loggingfmt = '%(asctime)s|%(name)-10s %(threadName)-12s|%(levelname)8s|%(lineno)4d  %(message)s'
@@ -154,7 +158,7 @@ def startup(dir_working=None):
     #     if re_match is not None:
     #       pass # found a match
     #       break
-    
+
     # logging basic start up info 
     logging.debug(os.getcwd())
 
