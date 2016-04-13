@@ -40,6 +40,7 @@ VERSION = '0.1.0'
 _DIR_WORK = r'C:\xtemp'  # Set default directory
 _DIR_DATA_NAME = r''
 _DIR_DATA = os.path.join(_DIR_WORK, _DIR_DATA_NAME)
+_T_SCRIPT_START=None
 
 
 def wait_progressbar(wait_time, update_time=None,
@@ -88,10 +89,10 @@ def wait_progressbar(wait_time, update_time=None,
 def get_timestamp(t=None):
     if (t is None) or not (isinstance(t, float)): t = time()
     if '_FMT_TIME' not in globals():
-        LOCAL_FMT_TIME = '%y%m%d-%H-%M-%S'
+        local_fmt_time = '%y%m%d-%H-%M-%S'
     else:
-        LOCAL_FMT_TIME = _FMT_TIME
-    return t, strftime(LOCAL_FMT_TIME, localtime(t))
+        local_fmt_time = _FMT_TIME
+    return t, strftime(local_fmt_time, localtime(t))
 
 
 def user_func():
@@ -104,6 +105,7 @@ class UserClass():
 
 def main_work():
     pass
+    global _T_SCRIPT_START
     # wait_progressbar(wait_time=5)
 
 
@@ -113,38 +115,44 @@ def startup(dir_working=None):
     global _DIR_DATA_NAME
     global _DIR_DATA
     global _DIR_WORK
-
-    # working directory setup
-    if dir_working is None: dir_working = _DIR_WORK
-    if not dir_working:
-        if not os.path.exists(dir_working): os.mkdir(dir_working, 755)
-        if (not _DIR_DATA_NAME) and (not os.path.exists(_DIR_DATA)):
-            os.mkdir(_DIR_DATA, 755)
-        os.chdir(_DIR_WORK)
+    global _T_SCRIPT_START
 
     # python logging module setup
     # old_logging_formatter=logging.root.handlers[0].formatter._fmt
     # loggingfmt = '%(asctime)s|%(name)-10s %(threadName)-12s|%(levelname)8s|%(lineno)4d  %(message)s'
-    loggingfmt = "%(asctime)s|%(levelname)8s|%(lineno)4d|  %(message)s"
-    logging.basicConfig(level=logging.NOTSET, stream=sys.stdout, format=loggingfmt,
+    loggingfmt = "%(asctime)s|%(levelname)8s|%(lineno)4d| %(message)s"
+    logging.basicConfig(level=logging.NOTSET, stream=sys.stdout,
+                        format=loggingfmt,
                         datefmt='%m%d-%H:%M:%S')
     _LOG_MOD = logging.getLogger(__name__)
 
     # python argument parser setup    
     ap = argparse.ArgumentParser(description=__doc__, epilog='%(prog)s ' + VERSION, \
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
-    ap.add_argument('-i', '--in-file', metavar='FILE', nargs='*',
-                    help='the files to read')
-    ap.add_argument('-o', '--out-file', metavar='FILE', nargs='*',
-                    help='the files to write')
+    ap.add_argument('-V','--version', action='version', version='%(prog)s ' + VERSION)
+                    
     ap.add_argument('--loops', type=int, default=1, metavar='int',
                     help='Number of loops of the main work function')
+    ap.add_argument('--ontime', type=float, default=600, metavar='float',
+                    help='Time in seconds to keep the tester in power up states')
+    ap.add_argument('--offtime', type=float, default=45, metavar='float',
+                    help='Time in seconds to keep the tester in power down states')       
+    ap.add_argument('--flagerror', action='store_true',
+                    help='Exist looping when there is an error')       
+                      
     ap.add_argument('--verbose', action='store_true',
-                    help='Make the program more verbose')
+                    help='Make the program more verbose (TODO)')
     ap.add_argument('--debug', action='store_true',
-                    help='Print additional debug information')
-    _ARGS = ap.parse_args()
+                    help='Print additional debug information  (TODO)')
+    _ARGS = ap.parse_args()    
+    
+    # working directory setup
+    if dir_working is None: dir_working = _DIR_WORK    
+    if dir_working:
+        if not os.path.exists(dir_working): os.mkdir(dir_working, 700)
+        os.chdir(dir_working)        
+    _DIR_DATA=os.path.join(os.getcwd(),_DIR_DATA_NAME)    
+    if (not os.path.exists(_DIR_DATA)): os.mkdir(_DIR_DATA, 700)
 
     # regular expression example
     # regexp_pat=[r'(.*)error(.*)']
@@ -160,11 +168,14 @@ def startup(dir_working=None):
     #       break
 
     # logging basic start up info 
-    logging.debug(os.getcwd())
 
+    _T_SCRIPT_START,time_str = get_timestamp()
+    logging.debug("%s    %s "%(os.getcwd(),time_str))   
 
 def main():
+    global _T_SCRIPT_START
     # print _ARGS
+
     _T_START, _T_STOP = None, None
     for main_loop_ct in xrange(_ARGS.loops):
         _T_START = time()
