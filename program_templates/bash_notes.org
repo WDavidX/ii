@@ -26,15 +26,15 @@ test option file
 
 *** String test
 
-|-----------+-------------------------------------+---+---+---|
-| option    | Description                         |   |   |   |
-|-----------+-------------------------------------+---+---+---|
-| -z string | True if string is empty             |   |   |   |
-| -n string | True if string has non-zero size    |   |   |   |
-| string    | True if string is NOT null (" ")    |   |   |   |
-| s1 = s2   | True if string s1 equals s2         |   |   |   |
-| s1 != s2  | True if string s1 does not equal s2 |   |   |   |
-|-----------+-------------------------------------+---+---+---|
+|-----------+-------------------------------------+
+| option    | Description                         |
+|-----------+-------------------------------------+
+| -z string | True if string is empty             |
+| -n string | True if string has non-zero size    |
+| string    | True if string is NOT null (" ")    |
+| s1 = s2   | True if string s1 equals s2         |
+| s1 != s2  | True if string s1 does not equal s2 |
+|-----------+-------------------------------------+
 
 
 *** Debug settings
