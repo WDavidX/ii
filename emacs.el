@@ -90,6 +90,7 @@
   (max 1 (/ (1- (window-height (selected-window))) 2)))
 (global-unset-key (kbd "M-p"))
 (global-unset-key (kbd "M-n"))
+
 (global-set-key (kbd "M-n")     ; page down
   (lambda () (interactive)
     (condition-case nil (scroll-up (window-half-height))
@@ -98,6 +99,16 @@
   (lambda () (interactive) ; page up
     (condition-case nil (scroll-down (window-half-height))
       (beginning-of-buffer (goto-char (point-min))))))
+      
+(global-set-key [next]
+  (lambda () (interactive)
+    (condition-case nil (scroll-up)
+      (end-of-buffer (goto-char (point-max))))))
+(global-set-key [prior]
+  (lambda () (interactive)
+    (condition-case nil (scroll-down)
+      (beginning-of-buffer (goto-char (point-min))))))      
+      
       
 (global-unset-key (kbd "M-m"))
 (global-set-key (kbd "M-m") 'set-mark-command)
