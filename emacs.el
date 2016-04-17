@@ -1,6 +1,24 @@
 ;; Emacs general settings, applicable to all versions
 ;; ==========    ==========
 
+(defvar ii-dir (if load-file-name
+                  ;; File is being loaded.
+                  (file-name-directory load-file-name)
+                  ;; File is being evaluated using, for example, `eval-buffer'.
+                  default-directory))                       
+
+
+;;(defvar ii-dir (concat emacs-home-dir "ii/"))
+
+;;(if (eq system-type 'windows-nt)
+;;	( progn
+;;    ;;(setq-default default-directory default-directory)
+;;    ;;(load-file (concat(default-directory "ii/")))
+;;    (defvar ii-dir default-directory)
+;;  ))  
+;;(message ii-dir)
+
+(define-key isearch-mode-map [backspace] 'isearch-delete-char)
 ;;============================================================
 ;;========== General modes and varibles
 ;;============================================================
@@ -44,21 +62,21 @@
 ;;============================================================
 (if (>= emacs-major-version 19)
 	( progn
-	  (message "Loeading setup for Emacs 19")	  
+	  (message "Loading setup for Emacs 19")	  
 	 ))
 ;;============================================================
 ;;========== Evaluation of the configuration 
 ;;============================================================
 (if (>= emacs-major-version 20)
 	( progn
- 	  (message "Loeading setup for Emacs 20")
+ 	  (message "Loading setup for Emacs 20")
     ))
 ;;============================================================
 ;;========== Evaluation of the configuration 
 ;;============================================================
 (if (>= emacs-major-version 21)
 	( progn
-	  (message "Loeading setup for Emacs 21")	  
+	  (message "Loading setup for Emacs 21")	  
 	  (global-linum-mode 1)
 	 ))
 ;;============================================================
@@ -66,7 +84,7 @@
 ;;============================================================
 (if (>= emacs-major-version 22)
 	( progn
-	  (message "Loeading setup for Emacs 22")
+	  (message "Loading setup for Emacs 22")
 	))
 
 ;;============================================================
@@ -77,7 +95,7 @@
 
 (if (>= emacs-major-version 23)
 	( progn
-	  (message "Loeading setup for Emacs 22")
+	  (message "Loading setup for Emacs 23")
 	))
 
 
@@ -85,6 +103,17 @@
 ;;============================================================
 ;;========== Evaluation of the configuration 
 ;;============================================================
+
+(defun os-path-join (a &rest ps)
+  (let ((path a))
+    (while ps
+      (let ((p (pop ps)))
+        (cond ((string-prefix-p "/" p)
+               (setq path p))
+              ((or (not path) (string-suffix-p "/" p))
+               (setq path (concat path p)))
+              (t (setq path (concat path "/" p))))))
+    path))
 
 (defun window-half-height ()
   (max 1 (/ (1- (window-height (selected-window))) 2)))
@@ -117,7 +146,7 @@
 (global-unset-key [(f10)])
 (global-set-key [(f10)] 'eval-last-sexp)
 (global-unset-key [(f11)])
-(global-set-key [(f11)] (lambda() (interactive) (find-file "~/ii/emacs.el")))
+(global-set-key [(f11)] (lambda() (interactive) (find-file (os-path-join ii-dir "emacs.el"))))
 (global-unset-key [(f12)])
 (global-set-key [(f12)] (lambda() (interactive) (save-some-buffers (buffer-file-name)) (eval-buffer)))
 
