@@ -1,3 +1,9 @@
+# Repo specific packages
+*ii/dir_emacs/dowload_packages/*
+
+#emacs temp file
+\#*#
+
 # scratch scripts
 scratch.sh
 scratch*
@@ -65,3 +71,4 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+

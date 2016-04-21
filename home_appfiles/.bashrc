@@ -1,5 +1,5 @@
-## Generated .bashrc on Tue Mar 29 23:41:39 CDT 2016
-if [ -f /home/pi/ii/bashrc.sh ]; then 
-  source /home/pi/ii/bashrc.sh 
+## Generated .bashrc on Tue Apr 19 16:13:25 CDT 2016
+if [ -f /u/xuweich/ii/bashrc.sh ]; then 
+  source /u/xuweich/ii/bashrc.sh 
 fi
 

@@ -3,7 +3,12 @@
 ############################################################
 ########## Environment Varibles Setup
 ############################################################
+umask 077
 
+source_if_exist(){
+  if [ -f "$1" ]; then source "$"
+  fi
+}
 
 ############################################################
 ########## Environment Varibles Setup
@@ -64,7 +69,8 @@ __git_ps1_foo(){
 
 if [ "${SHELL}" = "/bin/bash" ] ; then 
   export PS1=${BASH_PS1_DEFAULT}
-  . /etc/bash_completion
+  # . /etc/bash_completion
+  source_if_exist "/etc/bash_completion"
 fi
   
 
