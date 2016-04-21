@@ -1,6 +1,27 @@
 ;; Emacs general settings, applicable to all versions
 ;; ==========    ==========
 
+(setq load-path-startup load-path)
+
+(require 'package)
+(add-to-list 'package-archives
+			 '("melpa" . "https://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+
+(add-to-list 'load-path " ~/.emacs.d/elpa/helm-20160420.1313")
+(require 'helm-config)
+
+;;(add-to-list 'load-path "~/.emacs.d")    ; This may not be appeared if you have already added.
+;;(require 'auto-complete-config)
+;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;;(ac-config-default)
+
+
+
+
 (defvar ii-dir (if load-file-name
                   ;; File is being loaded.
                   (file-name-directory load-file-name)
@@ -8,7 +29,6 @@
                   default-directory))                       
 
 
-;;(defvar ii-dir (concat emacs-home-dir "ii/"))
 
 ;;(if (eq system-type 'windows-nt)
 ;;	( progn
