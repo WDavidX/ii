@@ -46,7 +46,7 @@
 (display-time)
 (global-font-lock-mode t)
 (show-paren-mode t)
-(menu-bar-mode -1)
+(menu-bar-mode t)
 (tool-bar-mode -1)
 
 ;; ==========  Enable varibles  ==========
@@ -58,7 +58,7 @@
 (setq compilation-scroll-output t)
 (setq frame-title-format (list "%b %p  [%f] " (getenv "USERNAME") " %s %Z   " emacs-version))
 (setq require-final-newline t)
-(setq org-replace-disputed-keys t)
+;;(setq org-replace-disputed-keys t)
 (fset 'yes-or-no-p 'y-or-n-p)  ;; ask by y or n
 (setq-default tab-width 4)
 
