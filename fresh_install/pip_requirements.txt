@@ -1,0 +1,37 @@
+# basic packages
+pip
+
+# Engineering
+pyvisa
+pyserial
+apscheduler
+allantools
+
+# Scientific computing
+numpy
+scipy
+matplotlib
+pandas
+pandas-datareader
+
+# Finance
+finsymbols
+fuzzyparsers
+parsedatetime
+
+# Network
+requests
+simplejson
+paramiko
+
+# Code analysis
+pylint
+
+# Documents and unittest
+sphinx
+nose
+pep8
+pycodestyle
+pyflakes
+
+
